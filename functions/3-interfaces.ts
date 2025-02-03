@@ -55,7 +55,7 @@ interface User {
 }
 
 /**
- * Crée un objet "User" nom vérifié à partir d'un nom.
+ * Crée un objet "User" non vérifié à partir d'un nom.
  * 
  * @param name Le nom de l'utilisateur
  * @returns Nouvel objet "User"
