@@ -9,7 +9,8 @@
  * 
  * @param name Le nom à utiliser
  */
-export function getGreeting(): void {
+export function getGreeting(name: string): string {
+    return "Hello " + name;
 }
 
 /**
@@ -22,13 +23,15 @@ export function getGreeting(): void {
  * @param lastName Nom
  * @returns Le nom complet
  */
-export function getFullName(): void {
+export function getFullName(firstName: string, lastName: string): string {
+    return firstName + " " + lastName;
 }
 
 /**
  * Fonction qui retourne la somme de deux nombres.
  */
-export function addNumbers(): void {
+export function addNumbers(a: number, b: number): number {
+    return a + b;
 }
 
 // ----------- PARAMETRES OPTIONNELS -----------
@@ -44,7 +47,9 @@ export function addNumbers(): void {
  * @param b 2ème nombre, obligatoire
  * @param c 3ème nombre, optionnel
  */
-export function sumNumbers(): void {
+export function sumNumbers(a: number, b: number, c?: number): number {
+    if (typeof c !== 'undefined') { return a + b + c; }
+    return a + b;
 }
 
 /**
@@ -57,8 +62,9 @@ export function sumNumbers(): void {
  * @param lastName Nom
  * @param middleName "middle name" (optionnel)
  */
-export function greetFullName(): void {
-
+export function greetFullName(firstName: string, lastName: string, middleName?: string): string {
+    if (typeof middleName !== 'undefined') { return "Hello " + firstName + " " + middleName + " " + lastName; }
+    return "Hello " + firstName + " " + lastName;
 }
 
 // ----------- UNIONS -----------
@@ -72,7 +78,10 @@ export function greetFullName(): void {
  * 
  * Documentation : https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html
  */
-export function addNumbersOrStrings(): void {
+export function addNumbersOrStrings(num1: number | string, num2: number | string): number {
+    if (typeof num1 === "string") { num1 = Number(num1); }
+    if (typeof num2 === "string") { num2 = Number(num2); }
+    return num1 + num2;
 }
 
 /** Alias pouvant être utilisé pour la fonction "addNumbersOrStringsAlias" */
@@ -81,7 +90,10 @@ type StringOrNumber = string | number
 /**
  * Reprenez la fonction fonction précédente et utilisez un alias en tant que type des paramètres.
  */
-export function addNumbersOrStringsAlias() : void {
+export function addNumbersOrStringsAlias(num1: StringOrNumber, num2: StringOrNumber): number {
+    if (typeof num1 === "string") { num1 = Number(num1); }
+    if (typeof num2 === "string") { num2 = Number(num2); }
+    return num1 + num2;
 }
 
 /**
@@ -95,5 +107,9 @@ export function addNumbersOrStringsAlias() : void {
  * @param a La valeur sur laquelle fizzbuzz va se baser.
  * @returns Le résultat attendu
  */
-export function fizzbuzz(): void {
+export function fizzbuzz(a: number): StringOrNumber {
+    if (a % 3 == 0 && a % 5 == 0) { return "fizzbuzz"; }
+    else if (a % 5 == 0) { return "buzz"; }
+    else if (a % 3 == 0) { return "fizz"; }
+    else { return a; }
 }

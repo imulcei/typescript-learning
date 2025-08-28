@@ -3,7 +3,9 @@
  * 
  * Retourne -1 si le tableau est vide.
  */
-export function getFirstNumber(): void {
+export function getFirstNumber(numbers: number[]): number {
+    if (numbers.length == 0) { return -1; }
+    return numbers[0];
 }
 
 /**
@@ -12,7 +14,8 @@ export function getFirstNumber(): void {
  * @param songs Liste de chansons
  * @returns La dernière chaîne de caractères
  */
-export function getLastSongPlayed(): void {
+export function getLastSongPlayed(songs: string[]): string {
+    return songs[songs.length - 1];
 }
 
 /**
@@ -22,7 +25,12 @@ export function getLastSongPlayed(): void {
  * 
  * Pour apprendre à vous servir de "reduce" : https://medium.com/free-code-camp/three-ways-to-find-the-longest-word-in-a-string-in-javascript-a2fb04c9757c#720b
  */
-export function findLongestWord(): void {
+export function findLongestWord(words: string[]): string {
+    let longestWord = words.reduce(function (longest, currentWord) {
+        if (currentWord.length > longest.length) { return currentWord; }
+        else { return longest; }
+    });
+    return longestWord;
 }
 
 /**
@@ -31,7 +39,8 @@ export function findLongestWord(): void {
  * @param length La taille du tableau à créer (number)
  * @param defaultValue La valeur par défaut (string)
  */
-export function fillArrayWithDefaultValue(): void {
+export function fillArrayWithDefaultValue(length: number, defaultValue: string): any[] {
+    return new Array(length).fill(defaultValue);
 }
 
 /**
@@ -44,7 +53,10 @@ export function fillArrayWithDefaultValue(): void {
  * @param arrayToSort Le tableau de chaînes de caractères à trier
  * @returns Le tableau trié
  */
-export function sortBySize(): void {
+export function sortBySize(arrayToSort: string[]): string[] {
+    let arraySorted: string[] = [...arrayToSort];
+    arraySorted.sort((a, b) => a.length - b.length);
+    return arraySorted;
 }
 
 // ----------- TABLEAUX AVEC DES UNIONS -----------
@@ -55,7 +67,13 @@ export function sortBySize(): void {
  * @param array Utilisation d'un tableau avec types multiples : https://www.geeksforgeeks.org/defining-array-with-multiple-types-in-typescript/
  * @returns Le résultat de la somme de type "number"
  */
-export function sumStringsAndNumbers(): void {
+export function sumStringsAndNumbers(array: (string | number)[]): number {
+    let total: number = 0;
+    for (const e of array) {
+        const number = Number(e);
+        total = total + number;
+    }
+    return total;
 }
 
 /**
@@ -67,8 +85,9 @@ export function sumStringsAndNumbers(): void {
  * @param array Un tableau pouvant contenir des "string" mais également des éléments "null"
  * @returns Tableau de chaînes de caractères résultat
  */
-export function stringsOnly(): void {
- }
+export function stringsOnly(array: (string | null)[]): string[] {
+    return array.filter((e) => typeof e === "string");
+}
 
 // ----------- TUPLES -----------
 
@@ -82,7 +101,12 @@ export function stringsOnly(): void {
  * @param userInfo Un tuple contenant les informations utilisateur
  * @returns Le nom utilisateur généré.
  */
-export function generateUsername(): void {
+export function generateUsername(userInfo: [string, string, number]): string {
+    let first: string = userInfo[1];
+    let firstLowCase: string = first.toLowerCase();
+    let second: string = userInfo[0].slice(0, 2);
+    let secondLowCase: string = second.toLowerCase();
+    return firstLowCase + secondLowCase + "_" + userInfo[2];
 }
 
 /**
@@ -90,6 +114,10 @@ export function generateUsername(): void {
  * TODO : à compléter avec {North, South, East, West}
  */
 export enum Direction {
+    North,
+    South,
+    East,
+    West
 }
 
 /**
@@ -111,5 +139,23 @@ export enum Direction {
  * @param direction Enum présentant une direction (North, South, East, West)
  * @returns Les nouvelles coordonnées (tuple)
  */
-export function getNextMapCoord(): void { 
+export function getNextMapCoord(coordinates: [number, number], direction: Direction): [number, number] {
+    const [x, y] = coordinates;
+    switch (direction) {
+        case Direction.North:
+            return [x, y + 1];
+            break;
+        case Direction.South:
+            return [x, y - 1];
+            break;
+        case Direction.East:
+            return [x + 1, y];
+            break;
+        case Direction.West:
+            return [x - 1, y];
+            break;
+        default:
+            return [x,y];
+            break;
+    }
 }
